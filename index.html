@@ -97,32 +97,6 @@
 
 		} while (runs.pagination.size == 200)
 
-		xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=ok6q001g&max=200&examiner=" + moderators[i], false);
-		xhr2.send();
-		runs = JSON.parse(xhr2.responseText)
-		runsVerifiedNumberOP4 = runs.pagination.size
-		do {
-			if (runs.pagination.size == 200) {
-				xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=ok6q001g&max=200&examiner=" + moderators[i] + "&offset=" + runsVerifiedNumberOP4, false);
-				xhr2.send();
-				runs = JSON.parse(xhr2.responseText)
-				runsVerifiedNumberOP4 += runs.pagination.size
-			}
-		} while (runs.pagination.size == 200)
-
-		xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=nj1n3xdp&max=200&examiner=" + moderators[i], false);
-		xhr2.send();
-		runs = JSON.parse(xhr2.responseText)
-		runsVerifiedNumberBShift = runs.pagination.size
-		do {
-			if (runs.pagination.size == 200) {
-				xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=nj1n3xdp&max=200&examiner=" + moderators[i] + "&offset=" + runsVerifiedNumberBShift, false);
-				xhr2.send();
-				runs = JSON.parse(xhr2.responseText)
-				runsVerifiedNumberBShift += runs.pagination.size
-			}
-		} while (runs.pagination.size == 200)
-
 		xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=3dx23z51&max=200&examiner=" + moderators[i], false);
 		xhr2.send();
 		runs = JSON.parse(xhr2.responseText)
@@ -136,7 +110,7 @@
 			}
 		} while (runs.pagination.size == 200)
 
-		runsVerifiedNumber = runsVerifiedNumberP2 + runsVerifiedNumberOP4 + runsVerifiedNumberBShift + runsVerifiedNumberP2CE
+		runsVerifiedNumber = runsVerifiedNumberP2 + runsVerifiedNumberP2CE
 
 		runsVerified.push(runsVerifiedNumber)
 	}
@@ -149,7 +123,7 @@
 	result = swap(result)
 	result = reverseObject(result)
 
-	//	_smiley king
+	//	_Smiley king
 	console.log(result);
 	let xhr3 = new XMLHttpRequest();
 	var output = ""
