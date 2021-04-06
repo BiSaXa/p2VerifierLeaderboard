@@ -74,8 +74,8 @@
         return newObject;
       }
 	let xhr = new XMLHttpRequest();
-	xhr.setRequestHeader('Cache-Control', 'max-age=43200');
 	xhr.open("GET", "https://www.speedrun.com/api/v1/games/om1mw4d2", true);
+	xhr.setRequestHeader('Cache-Control', 'max-age=43200');
 	xhr.send();
 	moderators = []
 	runsVerified = []
@@ -87,12 +87,14 @@
 	xhr2.setRequestHeader('Cache-Control', 'max-age=43200');
 	for (var i = moderators.length - 1; i >= 0; i--) {
 		xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=om1mw4d2&max=200&examiner=" + moderators[i], true);
+		xhr2.setRequestHeader('Cache-Control', 'max-age=43200');
 		xhr2.send();
 		runs = JSON.parse(xhr2.responseText)
 		runsVerifiedNumberP2 = runs.pagination.size
 		do {
 			if (runs.pagination.size == 200) {
 				xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=om1mw4d2&max=200&examiner=" + moderators[i] + "&offset=" + runsVerifiedNumberP2, true);
+				xhr2.setRequestHeader('Cache-Control', 'max-age=43200');
 				xhr2.send();
 				runs = JSON.parse(xhr2.responseText)
 				runsVerifiedNumberP2 += runs.pagination.size
@@ -101,12 +103,14 @@
 		} while (runs.pagination.size == 200)
 
 		xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=3dx23z51&max=200&examiner=" + moderators[i], true);
+		xhr2.setRequestHeader('Cache-Control', 'max-age=43200');
 		xhr2.send();
 		runs = JSON.parse(xhr2.responseText)
 		runsVerifiedNumberP2CE = runs.pagination.size
 		do {
 			if (runs.pagination.size == 200) {
 				xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=3dx23z51&max=200&examiner=" + moderators[i] + "&offset=" + runsVerifiedNumberP2CE, true);
+				xhr2.setRequestHeader('Cache-Control', 'max-age=43200');
 				xhr2.send();
 				runs = JSON.parse(xhr2.responseText)
 				runsVerifiedNumberP2CE += runs.pagination.size
@@ -129,12 +133,12 @@
 	//	_Smiley king
 	console.log(result);
 	let xhr3 = new XMLHttpRequest();
-	xhr3.setRequestHeader('Cache-Control', 'max-age=43200');
 	var output = ""
 	var place = 0
 	for (key in result) {
 		place++
 		xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, true);
+		xhr3.setRequestHeader('Cache-Control', 'max-age=43200');
 		xhr3.send();
 		ModName = JSON.parse(xhr3.responseText)
 		name2 = ModName["data"]["names"]["international"]
