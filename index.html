@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html manifest="app_cache.appcache">
+<html>
 <meta charset="UTF-8">
 <head>
 	<title>Portal 2 Verifier Leaderboard</title>
@@ -41,6 +41,9 @@
 		</table>
 	</div>
 	<script type="text/javascript">
+	if (navigator.serviceWorker) {
+		navigator.serviceWorker.register('/p2VerifierLeaderboard/sw.js', {scope: '/p2VerifierLeaderboard/'})
+	}
 	function swap(json) {
 		var ret = {};
 		for (var key in json) {
