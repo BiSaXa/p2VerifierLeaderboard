@@ -84,7 +84,6 @@
 		moderators.push(key)
 	}
 	let xhr2 = new XMLHttpRequest();
-	xhr2.setRequestHeader('Cache-Control', 'max-age=43200');
 	for (var i = moderators.length - 1; i >= 0; i--) {
 		xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=om1mw4d2&max=200&examiner=" + moderators[i], false);
 		xhr2.setRequestHeader('Cache-Control', 'max-age=43200');
