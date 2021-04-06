@@ -1,5 +1,1 @@
 addType text/cache-manifest .appcache
-
-<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
-Header set Cache-Control "max-age=43200, public"
-</FilesMatch>
