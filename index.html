@@ -74,7 +74,7 @@
         return newObject;
       }
 	let xhr = new XMLHttpRequest();
-	xhr.open("GET", "https://www.speedrun.com/api/v1/games/om1mw4d2", false);
+	xhr.open("GET", "https://www.speedrun.com/api/v1/games/om1mw4d2", true);
 	xhr.send();
 	moderators = []
 	runsVerified = []
@@ -84,13 +84,13 @@
 	}
 	let xhr2 = new XMLHttpRequest();
 	for (var i = moderators.length - 1; i >= 0; i--) {
-		xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=om1mw4d2&max=200&examiner=" + moderators[i], false);
+		xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=om1mw4d2&max=200&examiner=" + moderators[i], true);
 		xhr2.send();
 		runs = JSON.parse(xhr2.responseText)
 		runsVerifiedNumberP2 = runs.pagination.size
 		do {
 			if (runs.pagination.size == 200) {
-				xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=om1mw4d2&max=200&examiner=" + moderators[i] + "&offset=" + runsVerifiedNumberP2, false);
+				xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=om1mw4d2&max=200&examiner=" + moderators[i] + "&offset=" + runsVerifiedNumberP2, true);
 				xhr2.send();
 				runs = JSON.parse(xhr2.responseText)
 				runsVerifiedNumberP2 += runs.pagination.size
@@ -98,13 +98,13 @@
 
 		} while (runs.pagination.size == 200)
 
-		xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=3dx23z51&max=200&examiner=" + moderators[i], false);
+		xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=3dx23z51&max=200&examiner=" + moderators[i], true);
 		xhr2.send();
 		runs = JSON.parse(xhr2.responseText)
 		runsVerifiedNumberP2CE = runs.pagination.size
 		do {
 			if (runs.pagination.size == 200) {
-				xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=3dx23z51&max=200&examiner=" + moderators[i] + "&offset=" + runsVerifiedNumberP2CE, false);
+				xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=3dx23z51&max=200&examiner=" + moderators[i] + "&offset=" + runsVerifiedNumberP2CE, true);
 				xhr2.send();
 				runs = JSON.parse(xhr2.responseText)
 				runsVerifiedNumberP2CE += runs.pagination.size
@@ -131,7 +131,7 @@
 	var place = 0
 	for (key in result) {
 		place++
-		xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
+		xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, true);
 		xhr3.send();
 		ModName = JSON.parse(xhr3.responseText)
 		name2 = ModName["data"]["names"]["international"]
