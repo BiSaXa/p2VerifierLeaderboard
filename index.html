@@ -74,6 +74,7 @@
         return newObject;
       }
 	let xhr = new XMLHttpRequest();
+	xhr.setRequestHeader('Cache-Control', 'max-age=43200');
 	xhr.open("GET", "https://www.speedrun.com/api/v1/games/om1mw4d2", true);
 	xhr.send();
 	moderators = []
@@ -83,6 +84,7 @@
 		moderators.push(key)
 	}
 	let xhr2 = new XMLHttpRequest();
+	xhr2.setRequestHeader('Cache-Control', 'max-age=43200');
 	for (var i = moderators.length - 1; i >= 0; i--) {
 		xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=om1mw4d2&max=200&examiner=" + moderators[i], true);
 		xhr2.send();
@@ -127,6 +129,7 @@
 	//	_Smiley king
 	console.log(result);
 	let xhr3 = new XMLHttpRequest();
+	xhr3.setRequestHeader('Cache-Control', 'max-age=43200');
 	var output = ""
 	var place = 0
 	for (key in result) {
