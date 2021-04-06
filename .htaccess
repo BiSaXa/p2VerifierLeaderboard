@@ -1,5 +1,3 @@
-<ifmodule mod_expires.c>
-  ExpiresActive On
-  ExpiresByType text/css "access plus 1 day"
-  ExpiresDefault "access plus 0 days"
-</ifmodule>
+<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
+Header set Cache-Control "max-age=43200, public"
+</FilesMatch>
