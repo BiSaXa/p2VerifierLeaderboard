@@ -1,0 +1,11 @@
+CACHE MANIFEST
+#v1.0 2021-04-06
+
+CACHE:
+index.html
+
+NETWORK:
+*
+
+FALLBACK:
+#static.html

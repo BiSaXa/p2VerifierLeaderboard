@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html manifest="app_cache.appcache">
 <meta charset="UTF-8">
 
 <head>
@@ -49,7 +49,6 @@
 		}
 		return ret;
 	}
-
 	function sortObject(obj) {
 		return Object.keys(obj)
 			.sort().reduce((a, v) => {
@@ -139,6 +138,7 @@
 	document.getElementById("table").innerHTML = output
 	</script>
 	<h3 style="color:powderblue;">Credits to https://github.com/AnInternetTroll</h3>
+	
 </body>
 
 </html>
