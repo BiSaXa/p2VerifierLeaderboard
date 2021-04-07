@@ -1,5 +1,3 @@
-import tableExporter from './tableExporter'
-
 function swap(json) {
 	var ret = {};
 	for (var key in json) {
