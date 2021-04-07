@@ -79,7 +79,7 @@ for (key in result) {
 //  .then(response => response.text())
 //  .then(text => document.getElementById("table").innerHTML = text)
 
-//document.getElementById("table").innerHTML = text
+document.getElementById("table").innerHTML = output
 
 function download(filename, text) {
   var pom = document.createElement('a');
@@ -98,10 +98,9 @@ encodeURIComponent(text));
 
 window.onload = function() {
 
-  var finalOutput = output
 	let btnExportCSV = document.querySelector('#exportCSVBtn');
 	btnExportCSV.onclick = () => {
 		console.log("Export in CSV");
-		download("output.csv", output) // this system took me fucking 2 days for fucks sake
+		download("output.csv", txtout) // this system took me fucking 2 days for fucks sake
 	};
 }
