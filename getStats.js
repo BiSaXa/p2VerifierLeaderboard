@@ -28,7 +28,7 @@ function reverseObject(object) {
     return newObject;
 }
 let xhr = new XMLHttpRequest();
-xhr.open("GET", "https://www.speedrun.com/api/v1/games/om1mw4d2", true);
+xhr.open("GET", "https://www.speedrun.com/api/v1/games/om1mw4d2", false);
 xhr.send();
 moderators = []
 runsVerified = []
