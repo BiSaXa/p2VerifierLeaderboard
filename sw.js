@@ -3,7 +3,7 @@ var VERSION = 'v1.6'              // Version of the off-line cache (change this 
 var CACHE_NAME = APP_PREFIX + VERSION
 var URLS = [                            // Add URL you want to cache in this list.
   '/p2VerifierLeaderboard/',                     // If you have separate JS/CSS files,
-  '/p2VerifierLeaderboard/index.html'            // add path to those files here
+  '/p2VerifierLeaderboard/index.html',            // add path to those files here
 	'/p2VerifierLeaderboard/style.css'
 ]
 
