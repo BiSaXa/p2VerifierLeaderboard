@@ -4,9 +4,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Portal 2 Verifier Leaderboard</title>
+	<link rel="stylesheet" href="../p2VerifierLeaderboard/style.css">
 	<link rel='icon' sizes='192x192' href='../p2VerifierLeaderboard/purplecup.png'>
 </head>
-<body style="background-color:black">
+<body style="background-color: rgba(25,25,25,255);">
 	<style type="text/css">
 		@font-face {
     font-family: 'verdana';
@@ -16,14 +17,11 @@
     font-style: normal;
 
 }
-		body{
-			background-color: rgba(255,255,255,0);
-		}
 		#table{
 			font-size: 500%;
 			/*font-family: Sans-serif;*/
 			font-family: verdana;
-			background-color: #545454;
+			background-color: #252525;
 			color: #6a8ed2;
 			/*color: #ffffff;*/
 			table-layout: auto;
@@ -32,7 +30,7 @@
 		}
 		h1{text-align:center;}
 		td{
-			border: 2px solid #99aab5;
+			border: 5px solid #303030;
 			/*border: 2px solid #2c2f33;*/
 			padding: 10px;
 		}
@@ -44,7 +42,7 @@
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="../p2VerifierLeaderboard/getStats.js"></script> <!-- text/javascript -->
-	<button id="exportCSVBtn" class="btn btn-success">Export To CSV</button>
+	<button id="exportCSVBtn" class="button">Export To CSV</button>
 </body>
 
 </html>
