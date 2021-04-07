@@ -80,9 +80,9 @@ for (key in result) {
 	output += "<tr><td>"+place+"</td><td>" + name2 + "</td><td>" + result[key] + "</td><tr>"
 	txtout += place+","+"\""+name2+"\""+","+result[key]+"\n"
 }
-var txtInput = fetch('output.txt')
-  .then(response => response.text())
-  .then(text => document.getElementById("table").innerHTML = text)
+//var txtInput = fetch('output.txt')
+//  .then(response => response.text())
+//  .then(text => document.getElementById("table").innerHTML = text)
 
 //document.getElementById("table").innerHTML = text
 
