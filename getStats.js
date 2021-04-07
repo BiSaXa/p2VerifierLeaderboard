@@ -80,7 +80,10 @@ for (key in result) {
 	output += "<tr><td>"+place+"</td><td>" + name2 + "</td><td>" + result[key] + "</td><tr>"
 	txtout += place+","+"\""+name2+"\""+","+result[key]+"\n"
 }
-document.getElementById("table").innerHTML = output
+var txtInput = fetch('output.txt')
+  .then(response => response.text())
+  .then(text => console.log(text))
+document.getElementById("table").innerHTML = txtInput
 
 function download(filename, text) {
   var pom = document.createElement('a');
@@ -103,6 +106,6 @@ window.onload = function() {
 	let btnExportCSV = document.querySelector('#exportCSVBtn');
 	btnExportCSV.onclick = () => {
 		console.log("Export in CSV");
-		download("output.csv", txtout) // this system took me fucking 2 days for fucks sake
+		download("output.csv", output) // this system took me fucking 2 days for fucks sake
 	};
 }
