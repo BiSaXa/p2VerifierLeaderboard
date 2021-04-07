@@ -1,3 +1,5 @@
+import tableExporter from './tableExporter'
+
 function swap(json) {
 	var ret = {};
 	for (var key in json) {
@@ -21,7 +23,7 @@ function reverseObject(object) {
     for (var i = keys.length - 1; i >= 0; i--) {
         var value = object[keys[i]];
         newObject[keys[i]]= value;
-    }       
+    }
     return newObject;
 }
 let xhr = new XMLHttpRequest();
@@ -46,7 +48,7 @@ for (var i = moderators.length - 1; i >= 0; i--) {
 			runs = JSON.parse(xhr2.responseText)
 			runsVerifiedNumberP2 += runs.pagination.size
 		}
-		
+
 	} while (runs.pagination.size == 200)
 
 	runsVerified.push(runsVerifiedNumberP2)
@@ -76,31 +78,10 @@ for (key in result) {
 }
 document.getElementById("table").innerHTML = output
 
-function downloadCSV(csv, filename){
-	var csvFile;
-	var downloadLink;
-	
-	csvFile = new Blob([csv], {type:"text/csv"});
-	
-	downloadLink = document.createElement("c");
-	downloadLink.download = filename;
-	downloadLink.href = window.URL.createObjectURL(csvFile);
-	downloadLink.style.display = "none";
-	
-	document.body.appendChild(downloadLink);
-	downloadLink.click();
-}
+window.onload = function() {
 
-function exportTableToCSV(filename){
-	var csv = [];
-	var rows = document.querySelectorAll("table tr");
-	
-	for(var i = 0; i < rows.length; i++){
-		var row = [], cols = rows[i].querySelectorAll("td, th");
-		for(var j = 0; j < cols.length; j++){
-			row.push(cols[j].innerText);
-		}
-		csv.push(row.join(","));
-	}
-	downloadCSV(csv.join("\n"), filename);
+	let btnExportCSV = document.querySelector('#exportCSVBtn');
+	btnExportCSV.onclick = () => {
+		console.log("Export in CSV");
+	};
 }
