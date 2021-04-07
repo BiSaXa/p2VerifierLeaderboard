@@ -28,7 +28,7 @@ function reverseObject(object) {
     return newObject;
 }
 let xhr = new XMLHttpRequest();
-xhr.open("GET", "https://www.speedrun.com/api/v1/games/om1mw4d2", false);
+xhr.open("GET", "https://www.speedrun.com/api/v1/games/om1mw4d2", true);
 xhr.send();
 moderators = []
 runsVerified = []
@@ -84,7 +84,7 @@ var txtInput = fetch('output.txt')
   .then(response => response.text())
   .then(text => console.log(text))
 console.log(txtInput);
-document.getElementById("table").innerHTML = output
+document.getElementById("table").innerHTML = text
 
 function download(filename, text) {
   var pom = document.createElement('a');
