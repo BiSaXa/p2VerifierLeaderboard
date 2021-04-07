@@ -83,6 +83,7 @@ for (key in result) {
 var txtInput = fetch('output.txt')
   .then(response => response.text())
   .then(text => console.log(text))
+console.log(txtInput);
 document.getElementById("table").innerHTML = output
 
 function download(filename, text) {
