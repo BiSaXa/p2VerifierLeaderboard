@@ -30,3 +30,27 @@ xhr.send();
 //  .then(response => response.text())
 //  .then(text => document.getElementById("table").innerHTML = text)
 document.getElementById("table").innerHTML = output;
+
+/*function download(filename, text) {
+  var pom = document.createElement('a');
+  pom.setAttribute('href', 'data:text/plain;charset=utf-8,' +
+
+encodeURIComponent(text));
+  pom.setAttribute('download', filename);
+
+  pom.style.display = 'none';
+  document.body.appendChild(pom);
+
+  pom.click();
+
+  document.body.removeChild(pom);
+}
+
+window.onload = function() {
+
+	let btnExportCSV = document.querySelector('#exportCSVBtn');
+	btnExportCSV.onclick = () => {
+		console.log("Export in CSV");
+		download("output.csv", stripped) // this system took me fucking 2 days for fucks sake
+	};
+}*/
