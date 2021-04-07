@@ -62,9 +62,10 @@ result = swap(result)
 result = reverseObject(result)
 
 //	_Smiley king
-console.log(result);
+//console.log(result);
 let xhr3 = new XMLHttpRequest();
 var output = ""
+var txtout = ""
 var place = 0
 for (key in result) {
 	place++
@@ -73,13 +74,34 @@ for (key in result) {
 	ModName = JSON.parse(xhr3.responseText)
 	name2 = ModName["data"]["names"]["international"]
 	output += "<tr><td>"+place+"</td><td>" + name2 + "</td><td>" + result[key] + "</td><tr>"
+	txtout += place+","+"\""+name2+"\""+","+result[key]+"\n"
 }
 document.getElementById("table").innerHTML = output
 
+function download(filename, text) {
+  var pom = document.createElement('a');
+  pom.setAttribute('href', 'data:text/plain;charset=utf-8,' +
+
+encodeURIComponent(text));
+  pom.setAttribute('download', filename);
+
+  pom.style.display = 'none';
+  document.body.appendChild(pom);
+
+  pom.click();
+
+  document.body.removeChild(pom);
+}
+
 window.onload = function() {
 
+  var finalOutput = output
+	for(var i = moderators.length*2 - 1; i >= 0; i--) {
+		finalOutput.replace('<tr>', '');
+	}
 	let btnExportCSV = document.querySelector('#exportCSVBtn');
 	btnExportCSV.onclick = () => {
 		console.log("Export in CSV");
+		download("output.csv", txtout) // this system took me fucking 2 days for fucks sake
 	};
 }

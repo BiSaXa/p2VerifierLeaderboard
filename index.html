@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-<meta charset="UTF-8">
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Portal 2 Verifier Leaderboard</title>
 	<link rel='icon' sizes='192x192' href='../p2VerifierLeaderboard/purplecup.png'>
 </head>
-
 <body style="background-color:black">
 	<style type="text/css">
 		@font-face {
@@ -30,19 +30,21 @@
 			width: 100%;
 			border-collapse: collapse;
 		}
+		h1{text-align:center;}
 		td{
 			border: 2px solid #99aab5;
 			/*border: 2px solid #2c2f33;*/
 			padding: 10px;
 		}
 	</style>
+	<h1 style="color:powderblue;">Portal 2 Verifier Leaderboard</h1>
 	<div id="board">
 		<table id="table">
 		</table>
 	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="../p2VerifierLeaderboard/getStats.js"></script> <!-- text/javascript -->
 	<button id="exportCSVBtn" class="btn btn-success">Export To CSV</button>
-	<h3 style="color:powderblue;">Credits to https://github.com/AnInternetTroll</h3>
 </body>
 
 </html>
