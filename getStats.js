@@ -52,6 +52,7 @@ for (var i = moderators.length - 1; i >= 0; i--) {
 	runsVerified.push(runsVerifiedNumberP2)
 
 }
+
 runsVerified = runsVerified.reverse()
 var result = {};
 moderators.forEach((key, i) => result[key] = runsVerified[i]);
@@ -96,9 +97,6 @@ encodeURIComponent(text));
 window.onload = function() {
 
   var finalOutput = output
-	for(var i = moderators.length*2 - 1; i >= 0; i--) {
-		finalOutput.replace('<tr>', '');
-	}
 	let btnExportCSV = document.querySelector('#exportCSVBtn');
 	btnExportCSV.onclick = () => {
 		console.log("Export in CSV");
