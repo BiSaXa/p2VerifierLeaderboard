@@ -1,3 +1,6 @@
+if (navigator.serviceWorker) {
+		navigator.serviceWorker.register('/p2VerifierLeaderboard/sw.js', {scope: '/p2VerifierLeaderboard/'})
+	}
 function swap(json) {
 	var ret = {};
 	for (var key in json) {
