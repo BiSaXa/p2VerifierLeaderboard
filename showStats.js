@@ -14,7 +14,7 @@ function setText(url) {
         doc.send();
     }
 setText("https://bisaxa.github.io/p2VerifierLeaderboardBackend/")*/
-var output = ""
+/*var output = ""
 
 let xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
@@ -24,12 +24,12 @@ xhr.onreadystatechange = function() {
 		output = xhr.responseText;
 }
 xhr.open("GET", "https://bisaxa.github.io/p2VerifierLeaderboardBackend/" + ((/\?/).test("https://bisaxa.github.io/p2VerifierLeaderboardBackend/") ? "&" : "?") + (new Date()).getTime(), false);
-xhr.send();
+xhr.send();*/
 
-//var txtInput = fetch('https://bisaxa.github.io/p2VerifierLeaderboardBackend/')
-//  .then(response => response.text())
-//  .then(text => document.getElementById("table").innerHTML = text)
-document.getElementById("table").innerHTML = output;
+var txtInput = fetch('output.txt')
+  .then(response => response.text())
+  .then(text => document.getElementById("table").innerHTML = text)
+//document.getElementById("table").innerHTML = output;
 
 /*function download(filename, text) {
   var pom = document.createElement('a');
