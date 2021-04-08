@@ -107,6 +107,9 @@ window.onload = function() {
 	let btnExportTXT = document.querySelector('#exportTXTBtn');
 	btnExportTXT.onclick = () => {
 		console.log("Export in TXT");
-		download("output.txt", output) // this system took me fucking 2 days for fucks sake
+		var txtInput = fetch('output.txt')
+		  .then(response => response.text())
+		  .then(text => download("output.txt", text)
+		//download("output.txt", output) // this system took me fucking 2 days for fucks sake
 	};
 }
