@@ -1,11 +1,13 @@
 var APP_PREFIX = 'p2VerifierLeaderboard'     // Identifier for this app (this needs to be consistent across every cache update)
-var VERSION = 'v1.22'              // Version of the off-line cache (change this value everytime you want to update cache)
+var VERSION = 'v1.23'              // Version of the off-line cache (change this value everytime you want to update cache)
 var CACHE_NAME = APP_PREFIX + VERSION
 var URLS = [                            // Add URL you want to cache in this list.
   '/p2VerifierLeaderboard/',                     // If you have separate JS/CSS files,
   '/p2VerifierLeaderboard/index.html',            // add path to those files here
   '/p2VerifierLeaderboard/style.css',
-  '/p2VerifierLeaderboard/purplecup.png'
+  '/p2VerifierLeaderboard/purplecup.png',
+  '/p2VerifierLeaderboard/Verdana.woff',
+  '/p2VerifierLeaderboard/Verdana.woff2'
 ]
 
 // Respond with cached resources
