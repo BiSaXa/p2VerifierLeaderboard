@@ -31,7 +31,7 @@ var txtInput = fetch('output.txt')
   .then(text => document.getElementById("table").innerHTML = text)
 //document.getElementById("table").innerHTML = output;
 
-function download(filename, text) {
+/*function download(filename, text) {
   var pom = document.createElement('a');
   pom.setAttribute('href', 'data:text/plain;charset=utf-8,' +
 
@@ -65,4 +65,4 @@ window.onload = function() {
 		  .then(text => download("output.txt", text))
 		//download("output.csv", stripped) // this system took me fucking 2 days for fucks sake
 	};
-}
+}*/
