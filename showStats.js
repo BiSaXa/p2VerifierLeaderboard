@@ -31,7 +31,7 @@ var txtInput = fetch('output.txt')
   .then(text => document.getElementById("table").innerHTML = text)
 //document.getElementById("table").innerHTML = output;
 
-/*function download(filename, text) {
+function download(filename, text) {
   var pom = document.createElement('a');
   pom.setAttribute('href', 'data:text/plain;charset=utf-8,' +
 
@@ -51,6 +51,18 @@ window.onload = function() {
 	let btnExportCSV = document.querySelector('#exportCSVBtn');
 	btnExportCSV.onclick = () => {
 		console.log("Export in CSV");
-		download("output.csv", stripped) // this system took me fucking 2 days for fucks sake
+		var txtInput = fetch('output.csv')
+		  .then(response => response.text())
+		  .then(text => download("output.csv", text))
+		//download("output.csv", stripped) // this system took me fucking 2 days for fucks sake
 	};
-}*/
+
+	let btnExportTXT = document.querySelector('#exportTXTBtn');
+	btnExportTXT.onclick = () => {
+		console.log("Export in TXT");
+		var txtInput = fetch('output.txt')
+		  .then(response => response.text())
+		  .then(text => download("output.txt", text))
+		//download("output.csv", stripped) // this system took me fucking 2 days for fucks sake
+	};
+}
