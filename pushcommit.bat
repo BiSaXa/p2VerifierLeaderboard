@@ -3,4 +3,3 @@ node getStats.js
 git add .
 git commit -m auto-update
 git push
-PAUSE
