@@ -31,38 +31,41 @@ var txtInput = fetch('P2output.txt')
   .then(text => document.getElementById("table").innerHTML = text)
 //document.getElementById("table").innerHTML = output;
 
-/*function download(filename, text) {
-  var pom = document.createElement('a');
-  pom.setAttribute('href', 'data:text/plain;charset=utf-8,' +
-
-encodeURIComponent(text));
-  pom.setAttribute('download', filename);
-
-  pom.style.display = 'none';
-  document.body.appendChild(pom);
-
-  pom.click();
-
-  document.body.removeChild(pom);
-}
+/*var txtInput = fetch('output.txt')
+	.then(response => response.text())
+	.then(text => download("output.txt", text))*/
+//download("output.csv", stripped) // this system took me fucking 2 days for fucks sake
 
 window.onload = function() {
 
-	let btnExportCSV = document.querySelector('#exportCSVBtn');
-	btnExportCSV.onclick = () => {
-		console.log("Export in CSV");
-		var txtInput = fetch('output.csv')
+
+	let p2Board = document.querySelector('#P2Table');
+	p2Board.onclick = () => {
+		console.log("Changing table to P2.");
+		//ADD TABLE CHANGE HERE
+		var txtInput = fetch('P2output.txt')
 		  .then(response => response.text())
-		  .then(text => download("output.csv", text))
-		//download("output.csv", stripped) // this system took me fucking 2 days for fucks sake
+		  .then(text => document.getElementById("table").innerHTML = text)
+
 	};
 
-	let btnExportTXT = document.querySelector('#exportTXTBtn');
-	btnExportTXT.onclick = () => {
-		console.log("Export in TXT");
-		var txtInput = fetch('output.txt')
+	let p2CEBoard = document.querySelector('#P2CETable');
+	p2CEBoard.onclick = () => {
+		console.log("Changing table to P2CE.");
+		//ADD TABLE CHANGE HERE
+		var txtInput = fetch('P2CEoutput.txt')
 		  .then(response => response.text())
-		  .then(text => download("output.txt", text))
-		//download("output.csv", stripped) // this system took me fucking 2 days for fucks sake
+		  .then(text => document.getElementById("table").innerHTML = text)
+
 	};
-}*/
+
+	let pRBoard = document.querySelector('#PRTable');
+	pRBoard.onclick = () => {
+		console.log("Changing table to PR.");
+		//ADD TABLE CHANGE HERE
+		var txtInput = fetch('PRoutput.txt')
+		  .then(response => response.text())
+		  .then(text => document.getElementById("table").innerHTML = text)
+
+	};
+}
