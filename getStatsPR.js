@@ -1,6 +1,5 @@
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const fs = require('fs');
-console.log("API call started.");
 function swap(json) {
 	var ret = {};
 	for (var key in json) {
@@ -27,8 +26,9 @@ function reverseObject(object) {
     }
     return newObject;
 }
+console.log("API call for PR started.");
 let xhr = new XMLHttpRequest();
-xhr.open("GET", "https://www.speedrun.com/api/v1/games/om1mw4d2", false);
+xhr.open("GET", "https://www.speedrun.com/api/v1/games/yd4km2k6", false);
 xhr.send();
 moderators = []
 runsVerified = []
@@ -38,13 +38,13 @@ for (key in database["data"]["moderators"]) {
 }
 let xhr2 = new XMLHttpRequest();
 for (var i = moderators.length - 1; i >= 0; i--) {
-	xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=om1mw4d2&max=200&examiner=" + moderators[i], false);
+	xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=yd4km2k6&max=200&examiner=" + moderators[i], false);
 	xhr2.send();
 	runs = JSON.parse(xhr2.responseText)
 	runsVerifiedNumberP2 = runs.pagination.size
 	do {
 		if (runs.pagination.size == 200) {
-			xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=om1mw4d2&max=200&examiner=" + moderators[i] + "&offset=" + runsVerifiedNumberP2, false);
+			xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=yd4km2k6&max=200&examiner=" + moderators[i] + "&offset=" + runsVerifiedNumberP2, false);
 			xhr2.send();
 			runs = JSON.parse(xhr2.responseText)
 			runsVerifiedNumberP2 += runs.pagination.size
@@ -81,12 +81,12 @@ for (key in result) {
 /*var txtInput = fetch('output.txt')
   .then(response => response.text())
   .then(text => document.getElementById("table").innerHTML = text)*/
-var stream = fs.createWriteStream("D:\\GitHub\\p2VerifierLeaderboard\\output.txt");
+var stream = fs.createWriteStream("D:\\GitHub\\p2VerifierLeaderboard\\PRoutput.txt");
 	stream.once('open', function(fd) {
 	  stream.write(output);
 	  stream.end();
 	});
-console.log("API called and outputted.");
+console.log("API call for PR ended.");
 
 //document.getElementById("table").innerHTML = output
 

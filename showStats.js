@@ -26,7 +26,7 @@ xhr.onreadystatechange = function() {
 xhr.open("GET", "https://bisaxa.github.io/p2VerifierLeaderboardBackend/" + ((/\?/).test("https://bisaxa.github.io/p2VerifierLeaderboardBackend/") ? "&" : "?") + (new Date()).getTime(), false);
 xhr.send();*/
 
-var txtInput = fetch('output.txt')
+var txtInput = fetch('P2output.txt')
   .then(response => response.text())
   .then(text => document.getElementById("table").innerHTML = text)
 //document.getElementById("table").innerHTML = output;
