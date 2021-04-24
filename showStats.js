@@ -59,6 +59,16 @@ window.onload = function() {
 
 	};
 
+	let p2SMBoard = document.querySelector('#P2SMTable');
+	p2SMBoard.onclick = () => {
+		console.log("Changing table to P2SM.");
+		//ADD TABLE CHANGE HERE
+		var txtInput = fetch('P2SMoutput.txt')
+		  .then(response => response.text())
+		  .then(text => document.getElementById("table").innerHTML = text)
+
+	};
+
 	let pRBoard = document.querySelector('#PRTable');
 	pRBoard.onclick = () => {
 		console.log("Changing table to PR.");
