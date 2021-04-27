@@ -29,6 +29,19 @@ xhr.send();*/
 var txtInput = fetch('P2output.txt')
   .then(response => response.text())
   .then(text => document.getElementById("table").innerHTML = text)
+  
+var lastUpdate = fetch("https://api.github.com/repos/bisaxa/p2VerifierLeaderboard/branches/gh-pages")
+      .then(response => {
+        response.json().then(json => {
+		  let lastDate = json.commit.commit.author.date.slice(0,10) + " " + json.commit.commit.author.date.slice(11,19);
+          console.log("Last Update: " + lastDate);
+		  document.getElementById("last-build").innerHTML = "Last Updated: " + lastDate;
+        });
+      })
+      .catch(error => {
+        console.log(error);
+});
+
 //document.getElementById("table").innerHTML = output;
 
 /*var txtInput = fetch('output.txt')
