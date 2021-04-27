@@ -6,8 +6,24 @@
 	<title>Portal 2 Verifier Leaderboard</title>
 	<link rel="stylesheet" href="../p2VerifierLeaderboard/style.css">
 	<link rel='icon' sizes='192x192' href='../p2VerifierLeaderboard/purplecup.png'>
+	<script type="text/javascript">
+    function setModifiedDate() {
+      if (document.getElementById('last-modified')) {
+        fetch("https://api.github.com/repos/bisaxa/p2VerifierLeaderboard/commits")
+          .then((response) => {
+            return response.json();
+          })
+          .then((commits) => {
+            var modified = commits[0]['commit']['committer']['date'].slice(0,10);
+            if(modified != "{{ page.date | date: "%Y-%m-%d" }}") {
+              document.getElementById('last-modified').textContent = "Last Modified: " + modified;
+            }
+          });
+      }
+    }
+	</script>
 </head>
-<body style="background-color: rgba(25,25,25,255);">
+<body style="background-color: rgba(25,25,25,255);"  onload="setModifiedDate(); setAccessedDate();">
 	<style type="text/css">
 		@font-face {
     font-family: 'verdana';
@@ -32,6 +48,8 @@
 		}
 	</style>
 	<h1 style="color: powderblue; font-family:verdana">Portal 2 Verifier Leaderboard</h1>
+	<h2 id="last-modified">Last Modified:</h2>
+	<span id='last-modified'/>
 	<div id="board">
 		<table id="table">
 		</table>
