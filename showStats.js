@@ -35,7 +35,7 @@ var lastUpdate = fetch("https://api.github.com/repos/bisaxa/p2VerifierLeaderboar
         response.json().then(json => {
 		  let lastDate = json.commit.commit.author.date.slice(0,10) + " " + json.commit.commit.author.date.slice(11,19);
           console.log("Last Update: " + lastDate);
-		  document.getElementById("last-build").innerHTML = "Last Updated: " + lastDate;
+		  document.getElementById("last-build").innerHTML = "Last Updated: " + lastDate + " UTC";
         });
       })
       .catch(error => {
