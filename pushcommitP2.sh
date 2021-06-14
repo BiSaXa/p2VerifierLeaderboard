@@ -1,4 +1,4 @@
-cd /D D:\GitHub\p2VerifierLeaderboard
+cd .
 node getStatsP2.js
 node getStatsP2CE.js
 node getStatsP2SM.js
