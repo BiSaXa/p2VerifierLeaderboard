@@ -1,3 +1,4 @@
+#!/bin/bash
 cd .
 node getStatsP2.js
 node getStatsP2CE.js
