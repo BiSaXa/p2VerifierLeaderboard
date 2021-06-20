@@ -81,7 +81,7 @@ for (key in result) {
 /*var txtInput = fetch('output.txt')
   .then(response => response.text())
   .then(text => document.getElementById("table").innerHTML = text)*/
-var stream = fs.createWriteStream("D:\\GitHub\\p2VerifierLeaderboard\\P2SMoutput.txt");
+var stream = fs.createWriteStream("P2SMoutput.txt");
 	stream.once('open', function(fd) {
 	  stream.write(output);
 	  stream.end();
