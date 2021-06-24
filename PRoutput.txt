@@ -1,1 +1,1 @@
-<tr><td>1</td><td>BiSaXa</td><td>137</td><tr><tr><td>2</td><td>Betsruner</td><td>35</td><tr><tr><td>3</td><td>Portal_Rex</td><td>3</td><tr>
+<tr><td>1</td><td>BiSaXa</td><td>137</td><tr><tr><td>2</td><td>Betsruner</td><td>35</td><tr>
