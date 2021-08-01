@@ -7,5 +7,5 @@ node getStatsPR.js
 git checkout gh-pages
 git add .
 git commit -m auto-update
-git push
 git remote set-url origin git@github.com:bisaxa/p2VerifierLeaderboard.git
+git push
