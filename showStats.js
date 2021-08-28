@@ -1,94 +1,408 @@
-if (navigator.serviceWorker) {
-		navigator.serviceWorker.register('/p2VerifierLeaderboard/sw.js', {scope: '/p2VerifierLeaderboard/'})
-}
-/*var mainText = ""
-function setText(url) {
-        var doc = new XMLHttpRequest();
-        doc.onreadystatechange = function() {
-            if (doc.readyState == XMLHttpRequest.DONE) {
-                mainText.text = doc.responseText;
-            }
-        }
-        doc.open("GET", url);
-        doc.setRequestHeader("Content-Encoding", "UTF-8");
-        doc.send();
-    }
-setText("https://bisaxa.github.io/p2VerifierLeaderboardBackend/")*/
-/*var output = ""
-
-let xhr = new XMLHttpRequest();
-xhr.onreadystatechange = function() {
-		if (xhr.readyState == XMLHttpRequest.DONE) {
-				output.text = xhr.responseText;
+function swap(json) {
+			var ret = {};
+			for (var key in json) {
+				ret[json[key]] = key;
+			}
+			return ret;
 		}
-		output = xhr.responseText;
-}
-xhr.open("GET", "https://bisaxa.github.io/p2VerifierLeaderboardBackend/" + ((/\?/).test("https://bisaxa.github.io/p2VerifierLeaderboardBackend/") ? "&" : "?") + (new Date()).getTime(), false);
-xhr.send();*/
+		function sortObject(obj) {
+			return Object.keys(obj)
+			.sort().reduce((a, v) => {
+				a[v] = obj[v];
+				return a;
+			}, {});
+		}
+		function reverseObject(object) {
+			var newObject = {};
+			var keys = [];
+			for (var key in object) {
+				keys.push(key);
+			}
+			for (var i = keys.length - 1; i >= 0; i--) {
+				var value = object[keys[i]];
+				newObject[keys[i]]= value;
+			}
+			return newObject;
+		}
+		let xhr = new XMLHttpRequest();
+		xhr.open("GET", "https://www.speedrun.com/api/v1/games/om1mw4d2", false);
+		xhr.send();
+		moderators = []
+		runsVerified = []
+		database = JSON.parse(xhr.responseText);
+		for (key in database["data"]["moderators"]) {
+			moderators.push(key)
+		}
+		let xhr2 = new XMLHttpRequest();
+		for (var i = moderators.length - 1; i >= 0; i--) {
+			xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=om1mw4d2&max=200&examiner=" + moderators[i], false);
+			xhr2.send();
+			runs = JSON.parse(xhr2.responseText)
+			runsVerifiedNumberP2 = runs.pagination.size
+			do {
+				if (runs.pagination.size == 200) {
+					xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=om1mw4d2&max=200&examiner=" + moderators[i] + "&offset=" + runsVerifiedNumberP2, false);
+					xhr2.send();
+					runs = JSON.parse(xhr2.responseText)
+					runsVerifiedNumberP2 += runs.pagination.size
+				}
 
-var txtInput = fetch('P2output.txt')
-  .then(response => response.text())
-  .then(text => document.getElementById("table").innerHTML = text)
-  
-var lastUpdate = fetch("https://api.github.com/repos/bisaxa/p2VerifierLeaderboard/branches/gh-pages")
-      .then(response => {
-        response.json().then(json => {
-		  let lastDate = json.commit.commit.author.date.slice(0,10); // + " " + json.commit.commit.author.date.slice(11,19);
-          console.log("Last Update: " + lastDate);
-		  document.getElementById("last-build").innerHTML = "Last Updated: " + lastDate; // + " UTC";
-        });
-      })
-      .catch(error => {
-        console.log(error);
-});
+			} while (runs.pagination.size == 200)
 
-//document.getElementById("table").innerHTML = output;
+			runsVerified.push(runsVerifiedNumberP2)
 
-/*var txtInput = fetch('output.txt')
-	.then(response => response.text())
-	.then(text => download("output.txt", text))*/
-//download("output.csv", stripped) // this system took me fucking 2 days for fucks sake
+		}
+
+		runsVerified = runsVerified.reverse()
+		var result = {};
+		moderators.forEach((key, i) => result[key] = runsVerified[i]);
+
+		result = swap(result)
+		result = sortObject(result)
+		result = swap(result)
+		result = reverseObject(result)
+
+		let xhr3 = new XMLHttpRequest();
+		var output = ""
+		var txtout = ""
+		var place = 0
+		for (key in result) {
+			place++
+			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
+			xhr3.send();
+			ModName = JSON.parse(xhr3.responseText)
+			name2 = ModName["data"]["names"]["international"]
+			output += "<tr><td>"+place+"</td><td>" + name2 + "</td><td>" + result[key] + "</td><tr>"
+		}
+		document.getElementById("table").innerHTML = output
 
 window.onload = function() {
 
-
 	let p2Board = document.querySelector('#P2Table');
 	p2Board.onclick = () => {
-		console.log("Changing table to P2.");
-		//ADD TABLE CHANGE HERE
-		var txtInput = fetch('P2output.txt')
-		  .then(response => response.text())
-		  .then(text => document.getElementById("table").innerHTML = text)
+		function swap(json) {
+			var ret = {};
+			for (var key in json) {
+				ret[json[key]] = key;
+			}
+			return ret;
+		}
+		function sortObject(obj) {
+			return Object.keys(obj)
+			.sort().reduce((a, v) => {
+				a[v] = obj[v];
+				return a;
+			}, {});
+		}
+		function reverseObject(object) {
+			var newObject = {};
+			var keys = [];
+			for (var key in object) {
+				keys.push(key);
+			}
+			for (var i = keys.length - 1; i >= 0; i--) {
+				var value = object[keys[i]];
+				newObject[keys[i]]= value;
+			}
+			return newObject;
+		}
+		let xhr = new XMLHttpRequest();
+		xhr.open("GET", "https://www.speedrun.com/api/v1/games/om1mw4d2", false);
+		xhr.send();
+		moderators = []
+		runsVerified = []
+		database = JSON.parse(xhr.responseText);
+		for (key in database["data"]["moderators"]) {
+			moderators.push(key)
+		}
+		let xhr2 = new XMLHttpRequest();
+		for (var i = moderators.length - 1; i >= 0; i--) {
+			xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=om1mw4d2&max=200&examiner=" + moderators[i], false);
+			xhr2.send();
+			runs = JSON.parse(xhr2.responseText)
+			runsVerifiedNumberP2 = runs.pagination.size
+			do {
+				if (runs.pagination.size == 200) {
+					xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=om1mw4d2&max=200&examiner=" + moderators[i] + "&offset=" + runsVerifiedNumberP2, false);
+					xhr2.send();
+					runs = JSON.parse(xhr2.responseText)
+					runsVerifiedNumberP2 += runs.pagination.size
+				}
+
+			} while (runs.pagination.size == 200)
+
+			runsVerified.push(runsVerifiedNumberP2)
+
+		}
+
+		runsVerified = runsVerified.reverse()
+		var result = {};
+		moderators.forEach((key, i) => result[key] = runsVerified[i]);
+
+		result = swap(result)
+		result = sortObject(result)
+		result = swap(result)
+		result = reverseObject(result)
+
+		let xhr3 = new XMLHttpRequest();
+		var output = ""
+		var txtout = ""
+		var place = 0
+		for (key in result) {
+			place++
+			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
+			xhr3.send();
+			ModName = JSON.parse(xhr3.responseText)
+			name2 = ModName["data"]["names"]["international"]
+			output += "<tr><td>"+place+"</td><td>" + name2 + "</td><td>" + result[key] + "</td><tr>"
+		}
+		document.getElementById("table").innerHTML = output
 
 	};
 
 	let p2CEBoard = document.querySelector('#P2CETable');
 	p2CEBoard.onclick = () => {
-		console.log("Changing table to P2CE.");
-		//ADD TABLE CHANGE HERE
-		var txtInput = fetch('P2CEoutput.txt')
-		  .then(response => response.text())
-		  .then(text => document.getElementById("table").innerHTML = text)
+		function swap(json) {
+			var ret = {};
+			for (var key in json) {
+				ret[json[key]] = key;
+			}
+			return ret;
+		}
+		function sortObject(obj) {
+			return Object.keys(obj)
+			.sort().reduce((a, v) => {
+				a[v] = obj[v];
+				return a;
+			}, {});
+		}
+		function reverseObject(object) {
+			var newObject = {};
+			var keys = [];
+			for (var key in object) {
+				keys.push(key);
+			}
+			for (var i = keys.length - 1; i >= 0; i--) {
+				var value = object[keys[i]];
+				newObject[keys[i]]= value;
+			}
+			return newObject;
+		}
+		let xhr = new XMLHttpRequest();
+		xhr.open("GET", "https://www.speedrun.com/api/v1/games/m1mx7nx6", false);
+		xhr.send();
+		moderators = []
+		runsVerified = []
+		database = JSON.parse(xhr.responseText);
+		for (key in database["data"]["moderators"]) {
+			moderators.push(key)
+		}
+		let xhr2 = new XMLHttpRequest();
+		for (var i = moderators.length - 1; i >= 0; i--) {
+			xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=m1mx7nx6&max=200&examiner=" + moderators[i], false);
+			xhr2.send();
+			runs = JSON.parse(xhr2.responseText)
+			runsVerifiedNumberP2 = runs.pagination.size
+			do {
+				if (runs.pagination.size == 200) {
+					xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=m1mx7nx6&max=200&examiner=" + moderators[i] + "&offset=" + runsVerifiedNumberP2, false);
+					xhr2.send();
+					runs = JSON.parse(xhr2.responseText)
+					runsVerifiedNumberP2 += runs.pagination.size
+				}
+
+			} while (runs.pagination.size == 200)
+
+			runsVerified.push(runsVerifiedNumberP2)
+
+		}
+
+		runsVerified = runsVerified.reverse()
+		var result = {};
+		moderators.forEach((key, i) => result[key] = runsVerified[i]);
+
+		result = swap(result)
+		result = sortObject(result)
+		result = swap(result)
+		result = reverseObject(result)
+
+		let xhr3 = new XMLHttpRequest();
+		var output = ""
+		var txtout = ""
+		var place = 0
+		for (key in result) {
+			place++
+			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
+			xhr3.send();
+			ModName = JSON.parse(xhr3.responseText)
+			name2 = ModName["data"]["names"]["international"]
+			output += "<tr><td>"+place+"</td><td>" + name2 + "</td><td>" + result[key] + "</td><tr>"
+		}
+		document.getElementById("table").innerHTML = output
 
 	};
 
 	let p2SMBoard = document.querySelector('#P2SMTable');
 	p2SMBoard.onclick = () => {
-		console.log("Changing table to P2SM.");
-		//ADD TABLE CHANGE HERE
-		var txtInput = fetch('P2SMoutput.txt')
-		  .then(response => response.text())
-		  .then(text => document.getElementById("table").innerHTML = text)
+		function swap(json) {
+			var ret = {};
+			for (var key in json) {
+				ret[json[key]] = key;
+			}
+			return ret;
+		}
+		function sortObject(obj) {
+			return Object.keys(obj)
+			.sort().reduce((a, v) => {
+				a[v] = obj[v];
+				return a;
+			}, {});
+		}
+		function reverseObject(object) {
+			var newObject = {};
+			var keys = [];
+			for (var key in object) {
+				keys.push(key);
+			}
+			for (var i = keys.length - 1; i >= 0; i--) {
+				var value = object[keys[i]];
+				newObject[keys[i]]= value;
+			}
+			return newObject;
+		}
+		let xhr = new XMLHttpRequest();
+		xhr.open("GET", "https://www.speedrun.com/api/v1/games/lde3eme6", false);
+		xhr.send();
+		moderators = []
+		runsVerified = []
+		database = JSON.parse(xhr.responseText);
+		for (key in database["data"]["moderators"]) {
+			moderators.push(key)
+		}
+		let xhr2 = new XMLHttpRequest();
+		for (var i = moderators.length - 1; i >= 0; i--) {
+			xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=lde3eme6&max=200&examiner=" + moderators[i], false);
+			xhr2.send();
+			runs = JSON.parse(xhr2.responseText)
+			runsVerifiedNumberP2 = runs.pagination.size
+			do {
+				if (runs.pagination.size == 200) {
+					xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=lde3eme6&max=200&examiner=" + moderators[i] + "&offset=" + runsVerifiedNumberP2, false);
+					xhr2.send();
+					runs = JSON.parse(xhr2.responseText)
+					runsVerifiedNumberP2 += runs.pagination.size
+				}
+
+			} while (runs.pagination.size == 200)
+
+			runsVerified.push(runsVerifiedNumberP2)
+
+		}
+
+		runsVerified = runsVerified.reverse()
+		var result = {};
+		moderators.forEach((key, i) => result[key] = runsVerified[i]);
+
+		result = swap(result)
+		result = sortObject(result)
+		result = swap(result)
+		result = reverseObject(result)
+
+		let xhr3 = new XMLHttpRequest();
+		var output = ""
+		var txtout = ""
+		var place = 0
+		for (key in result) {
+			place++
+			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
+			xhr3.send();
+			ModName = JSON.parse(xhr3.responseText)
+			name2 = ModName["data"]["names"]["international"]
+			output += "<tr><td>"+place+"</td><td>" + name2 + "</td><td>" + result[key] + "</td><tr>"
+		}
+		document.getElementById("table").innerHTML = output
 
 	};
 
 	let pRBoard = document.querySelector('#PRTable');
 	pRBoard.onclick = () => {
-		console.log("Changing table to PR.");
-		//ADD TABLE CHANGE HERE
-		var txtInput = fetch('PRoutput.txt')
-		  .then(response => response.text())
-		  .then(text => document.getElementById("table").innerHTML = text)
+		function swap(json) {
+			var ret = {};
+			for (var key in json) {
+				ret[json[key]] = key;
+			}
+			return ret;
+		}
+		function sortObject(obj) {
+			return Object.keys(obj)
+			.sort().reduce((a, v) => {
+				a[v] = obj[v];
+				return a;
+			}, {});
+		}
+		function reverseObject(object) {
+			var newObject = {};
+			var keys = [];
+			for (var key in object) {
+				keys.push(key);
+			}
+			for (var i = keys.length - 1; i >= 0; i--) {
+				var value = object[keys[i]];
+				newObject[keys[i]]= value;
+			}
+			return newObject;
+		}
+		let xhr = new XMLHttpRequest();
+		xhr.open("GET", "https://www.speedrun.com/api/v1/games/yd4km2k6", false);
+		xhr.send();
+		moderators = []
+		runsVerified = []
+		database = JSON.parse(xhr.responseText);
+		for (key in database["data"]["moderators"]) {
+			moderators.push(key)
+		}
+		let xhr2 = new XMLHttpRequest();
+		for (var i = moderators.length - 1; i >= 0; i--) {
+			xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=yd4km2k6&max=200&examiner=" + moderators[i], false);
+			xhr2.send();
+			runs = JSON.parse(xhr2.responseText)
+			runsVerifiedNumberP2 = runs.pagination.size
+			do {
+				if (runs.pagination.size == 200) {
+					xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=yd4km2k6&max=200&examiner=" + moderators[i] + "&offset=" + runsVerifiedNumberP2, false);
+					xhr2.send();
+					runs = JSON.parse(xhr2.responseText)
+					runsVerifiedNumberP2 += runs.pagination.size
+				}
+
+			} while (runs.pagination.size == 200)
+
+			runsVerified.push(runsVerifiedNumberP2)
+
+		}
+
+		runsVerified = runsVerified.reverse()
+		var result = {};
+		moderators.forEach((key, i) => result[key] = runsVerified[i]);
+
+		result = swap(result)
+		result = sortObject(result)
+		result = swap(result)
+		result = reverseObject(result)
+
+		let xhr3 = new XMLHttpRequest();
+		var output = ""
+		var txtout = ""
+		var place = 0
+		for (key in result) {
+			place++
+			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
+			xhr3.send();
+			ModName = JSON.parse(xhr3.responseText)
+			name2 = ModName["data"]["names"]["international"]
+			output += "<tr><td>"+place+"</td><td>" + name2 + "</td><td>" + result[key] + "</td><tr>"
+		}
+		document.getElementById("table").innerHTML = output
 
 	};
 }
