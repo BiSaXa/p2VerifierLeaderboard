@@ -32,7 +32,19 @@ runsVerified = []
 database = JSON.parse(xhr.responseText);
 for (key in database["data"]["moderators"]) {
 	moderators.push(key)
+	console.log(key)
 }
+// ADDING EX-MODS/VERIFIERS MANUALLY
+moderators.push('zxz759jq') // Portal_Rex
+moderators.push('68wl4ovj') // Msushi
+moderators.push('qxkovr28') // zach
+moderators.push('8e9157dj') // ales
+moderators.push('7j4v5lj1') // AJ
+moderators.push('18qr5wjn') // Klooger
+moderators.push('0jml2kz8') // Kess
+moderators.push('dx33kdex') // spidda
+moderators.push('pj0n1q38') // Fatman992
+moderators.push('18v52vjl') // Znernicus
 let xhr2 = new XMLHttpRequest();
 for (var i = moderators.length - 1; i >= 0; i--) {
 	xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=om1mw4d2&max=200&examiner=" + moderators[i], false);
@@ -46,22 +58,16 @@ for (var i = moderators.length - 1; i >= 0; i--) {
 			runs = JSON.parse(xhr2.responseText)
 			runsVerifiedNumberP2 += runs.pagination.size
 		}
-
 	} while (runs.pagination.size == 200)
-
 	runsVerified.push(runsVerifiedNumberP2)
-
 }
-
 runsVerified = runsVerified.reverse()
 var result = {};
 moderators.forEach((key, i) => result[key] = runsVerified[i]);
-
 result = swap(result)
 result = sortObject(result)
 result = swap(result)
 result = reverseObject(result)
-
 let xhr3 = new XMLHttpRequest();
 var output = ""
 var txtout = ""
@@ -75,9 +81,7 @@ for (key in result) {
 	output += "<tr><td>" + place + "</td><td>" + name2 + "</td><td>" + result[key] + "</td><tr>"
 }
 document.getElementById("table").innerHTML = output
-
 window.onload = function () {
-
 	let p2Board = document.querySelector('#P2Table');
 	p2Board.onclick = () => {
 		function swap(json) {
@@ -115,6 +119,17 @@ window.onload = function () {
 		for (key in database["data"]["moderators"]) {
 			moderators.push(key)
 		}
+		// ADDING EX-MODS/VERIFIERS MANUALLY
+		moderators.push('zxz759jq') // Portal_Rex
+		moderators.push('68wl4ovj') // Msushi
+		moderators.push('qxkovr28') // zach
+		moderators.push('8e9157dj') // ales
+		moderators.push('7j4v5lj1') // AJ
+		moderators.push('18qr5wjn') // Klooger
+		moderators.push('0jml2kz8') // Kess
+		moderators.push('dx33kdex') // spidda
+		moderators.push('pj0n1q38') // Fatman992
+		moderators.push('18v52vjl') // Znernicus
 		let xhr2 = new XMLHttpRequest();
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=om1mw4d2&max=200&examiner=" + moderators[i], false);
@@ -128,22 +143,16 @@ window.onload = function () {
 					runs = JSON.parse(xhr2.responseText)
 					runsVerifiedNumberP2 += runs.pagination.size
 				}
-
 			} while (runs.pagination.size == 200)
-
 			runsVerified.push(runsVerifiedNumberP2)
-
 		}
-
 		runsVerified = runsVerified.reverse()
 		var result = {};
 		moderators.forEach((key, i) => result[key] = runsVerified[i]);
-
 		result = swap(result)
 		result = sortObject(result)
 		result = swap(result)
 		result = reverseObject(result)
-
 		let xhr3 = new XMLHttpRequest();
 		var output = ""
 		var txtout = ""
@@ -157,9 +166,7 @@ window.onload = function () {
 			output += "<tr><td>" + place + "</td><td>" + name2 + "</td><td>" + result[key] + "</td><tr>"
 		}
 		document.getElementById("table").innerHTML = output
-
 	};
-
 	let p2CEBoard = document.querySelector('#P2CETable');
 	p2CEBoard.onclick = () => {
 		function swap(json) {
@@ -210,22 +217,16 @@ window.onload = function () {
 					runs = JSON.parse(xhr2.responseText)
 					runsVerifiedNumberP2 += runs.pagination.size
 				}
-
 			} while (runs.pagination.size == 200)
-
 			runsVerified.push(runsVerifiedNumberP2)
-
 		}
-
 		runsVerified = runsVerified.reverse()
 		var result = {};
 		moderators.forEach((key, i) => result[key] = runsVerified[i]);
-
 		result = swap(result)
 		result = sortObject(result)
 		result = swap(result)
 		result = reverseObject(result)
-
 		let xhr3 = new XMLHttpRequest();
 		var output = ""
 		var txtout = ""
@@ -239,9 +240,7 @@ window.onload = function () {
 			output += "<tr><td>" + place + "</td><td>" + name2 + "</td><td>" + result[key] + "</td><tr>"
 		}
 		document.getElementById("table").innerHTML = output
-
 	};
-
 	let p2SMBoard = document.querySelector('#P2SMTable');
 	p2SMBoard.onclick = () => {
 		function swap(json) {
@@ -294,20 +293,15 @@ window.onload = function () {
 				}
 
 			} while (runs.pagination.size == 200)
-
 			runsVerified.push(runsVerifiedNumberP2)
-
 		}
-
 		runsVerified = runsVerified.reverse()
 		var result = {};
 		moderators.forEach((key, i) => result[key] = runsVerified[i]);
-
 		result = swap(result)
 		result = sortObject(result)
 		result = swap(result)
 		result = reverseObject(result)
-
 		let xhr3 = new XMLHttpRequest();
 		var output = ""
 		var txtout = ""
@@ -321,9 +315,7 @@ window.onload = function () {
 			output += "<tr><td>" + place + "</td><td>" + name2 + "</td><td>" + result[key] + "</td><tr>"
 		}
 		document.getElementById("table").innerHTML = output
-
 	};
-
 	let pRBoard = document.querySelector('#PRTable');
 	pRBoard.onclick = () => {
 		function swap(json) {
@@ -376,20 +368,15 @@ window.onload = function () {
 				}
 
 			} while (runs.pagination.size == 200)
-
 			runsVerified.push(runsVerifiedNumberP2)
-
 		}
-
 		runsVerified = runsVerified.reverse()
 		var result = {};
 		moderators.forEach((key, i) => result[key] = runsVerified[i]);
-
 		result = swap(result)
 		result = sortObject(result)
 		result = swap(result)
 		result = reverseObject(result)
-
 		let xhr3 = new XMLHttpRequest();
 		var output = ""
 		var txtout = ""
@@ -403,6 +390,5 @@ window.onload = function () {
 			output += "<tr><td>" + place + "</td><td>" + name2 + "</td><td>" + result[key] + "</td><tr>"
 		}
 		document.getElementById("table").innerHTML = output
-
 	};
 }
