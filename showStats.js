@@ -41,7 +41,6 @@ moderators.push('qxkovr28') // zach
 moderators.push('8e9157dj') // ales
 moderators.push('7j4v5lj1') // AJ
 moderators.push('18qr5wjn') // Klooger
-moderators.push('0jml2kz8') // Kess
 moderators.push('dx33kdex') // spidda
 moderators.push('pj0n1q38') // Fatman992
 moderators.push('18v52vjl') // Znernicus
@@ -126,7 +125,6 @@ window.onload = function () {
 		moderators.push('8e9157dj') // ales
 		moderators.push('7j4v5lj1') // AJ
 		moderators.push('18qr5wjn') // Klooger
-		moderators.push('0jml2kz8') // Kess
 		moderators.push('dx33kdex') // spidda
 		moderators.push('pj0n1q38') // Fatman992
 		moderators.push('18v52vjl') // Znernicus
