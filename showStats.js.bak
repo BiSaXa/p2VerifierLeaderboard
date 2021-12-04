@@ -276,8 +276,6 @@ window.onload = function () {
 		for (key in database["data"]["moderators"]) {
 			moderators.push(key)
 		}
-		// ADDING EX-MODS/VERIFIERS MANUALLY
-		moderators.push('zxz759jq') // Portal_Rex
 		let xhr2 = new XMLHttpRequest();
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", "https://www.speedrun.com/api/v1/runs?game=lde3eme6&max=200&examiner=" + moderators[i], false);
