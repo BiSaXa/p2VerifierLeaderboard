@@ -452,14 +452,21 @@ window.onload = function() {
 		}
 		// ADDING EX-MODS/VERIFIERS MANUALLY
 		moderators.push("zxz759jq"); // Portal_Rex
-		moderators.push("68wl4ovj"); // Msushi
-		moderators.push("qxkovr28"); // zach
-		moderators.push("8e9157dj"); // ales
-		moderators.push("7j4v5lj1"); // AJ
-		moderators.push("18qr5wjn"); // Klooger
-		moderators.push("dx33kdex"); // spidda
-		moderators.push("pj0n1q38"); // Fatman992
-		moderators.push("18v52vjl"); // Znernicus
+    		moderators.push("68wl4ovj"); // Msushi
+    		moderators.push("qxkovr28"); // zach
+    		moderators.push("8e9157dj"); // ales
+    		moderators.push("7j4v5lj1"); // AJ
+    		moderators.push("18qr5wjn"); // Klooger
+    		moderators.push("dx33kdex"); // spidda
+   		moderators.push("pj0n1q38"); // Fatman992
+    		moderators.push("18v52vjl"); // Znernicus
+    		moderators.push("1xyv32mx"); // lucas
+    		moderators.push("jmoolve8"); // RealCreative
+    		moderators.push("e8eky1o8"); // BSSDRVN
+    		moderators.push("jmoqqre8"); // AirHead
+    		moderators.push("pj03qwjw"); // Hyper
+    		moderators.push("qjng618m"); // Zypeh
+    		moderators.push("68wkq38g"); // PerOculos
 		let xhr2 = new XMLHttpRequest();
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[7]}&max=200&examiner=${moderators[i]}`, false);
@@ -481,9 +488,9 @@ window.onload = function() {
 		runsVerified = runsVerified.reverse();
 		var result = {};
 		moderators.forEach((key, i) => result[key] = runsVerified[i]);
-		result = swap(result);
+		//result = swap(result);
 		result = sortObject(result);
-		result = swap(result);
+		//result = swap(result);
 		result = reverseObject(result);
 		let xhr3 = new XMLHttpRequest();
 		var output = "";
