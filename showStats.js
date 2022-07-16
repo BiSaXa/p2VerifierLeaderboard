@@ -488,9 +488,9 @@ window.onload = function() {
 		runsVerified = runsVerified.reverse();
 		var result = {};
 		moderators.forEach((key, i) => result[key] = runsVerified[i]);
-		//result = swap(result);
+		result = swap(result);
 		result = sortObject(result);
-		//result = swap(result);
+		result = swap(result);
 		result = reverseObject(result);
 		let xhr3 = new XMLHttpRequest();
 		var output = "";
