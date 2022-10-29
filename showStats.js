@@ -1,17 +1,11 @@
 // define functions
-function swap(json) {
-	var ret = {};
-	for (var key in json) {
-		ret[json[key]] = key;
-	}
-	return ret;
-}
 function sortObject(obj) {
 	return Object.keys(obj)
-		.sort().reduce((a, v) => {
-			a[v] = obj[v];
-			return a;
-		}, {});
+    .sort((key1, key2) => obj[key1] - obj[key2])
+    .reduce((object, key) => ({
+      ...object,
+      [key]: obj[key]
+    }), {})
 }
 function reverseObject(object) {
 	var newObject = {};
@@ -25,7 +19,6 @@ function reverseObject(object) {
 	}
 	return newObject;
 }
-let apicount = 0;
 const ids = [
 	"4pd0n31e", //P1
 	"v1p4rp18", //P1CE
@@ -61,11 +54,11 @@ document.getElementById("warning").innerHTML = "Select a game to view its leader
 window.onload = function() {
 	let P1Board = document.querySelector("#P1Table");
 	P1Board.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[0]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -76,14 +69,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[0]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[0]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -104,7 +97,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -115,11 +108,11 @@ window.onload = function() {
 	};
 	let P1CEBoard = document.querySelector("#P1CETable");
 	P1CEBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[1]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -130,14 +123,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[1]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[1]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -158,7 +151,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -169,11 +162,11 @@ window.onload = function() {
 	};
 	let P1FBoard = document.querySelector("#P1FTable");
 	P1FBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[2]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -184,14 +177,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[2]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[2]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -212,7 +205,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -223,11 +216,11 @@ window.onload = function() {
 	};
 	let P1FMPBoard = document.querySelector("#P1FMPTable");
 	P1FMPBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[3]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -238,14 +231,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[3]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[3]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -266,7 +259,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -277,11 +270,11 @@ window.onload = function() {
 	};
 	let P1PRBoard = document.querySelector("#P1PRTable");
 	P1PRBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[4]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -292,14 +285,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[4]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[4]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -320,7 +313,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -331,11 +324,11 @@ window.onload = function() {
 	};
 	let P1SABoard = document.querySelector("#P1SATable");
 	P1SABoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[5]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -346,14 +339,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[5]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[5]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -374,7 +367,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -385,11 +378,11 @@ window.onload = function() {
 	};
 	let P1UNBoard = document.querySelector("#P1UNTable");
 	P1UNBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[6]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -400,14 +393,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[6]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[6]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -428,7 +421,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -439,11 +432,11 @@ window.onload = function() {
 	};
 	let P2Board = document.querySelector("#P2Table");
 	P2Board.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[7]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -471,14 +464,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[7]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[7]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -499,7 +492,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -510,11 +503,11 @@ window.onload = function() {
 	};
 	let P2CEBoard = document.querySelector("#P2CETable");
 	P2CEBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[8]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -525,14 +518,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[8]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[8]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -553,7 +546,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -564,11 +557,11 @@ window.onload = function() {
 	};
 	let DFDBoard = document.querySelector("#DFDTable");
 	DFDBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[9]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -579,14 +572,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[9]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[9]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -607,7 +600,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -618,11 +611,11 @@ window.onload = function() {
 	};
 	let WBBoard = document.querySelector("#WBTable");
 	WBBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[10]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -633,14 +626,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[10]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[10]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -661,7 +654,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -672,11 +665,11 @@ window.onload = function() {
 	};
 	let MMBoard = document.querySelector("#MMTable");
 	MMBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[11]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -687,14 +680,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[11]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[11]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -715,7 +708,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -726,11 +719,11 @@ window.onload = function() {
 	};
 	let DPDNBoard = document.querySelector("#DPDNTable");
 	DPDNBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[12]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -741,14 +734,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[12]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[12]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -769,7 +762,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -780,11 +773,11 @@ window.onload = function() {
 	};
 	let HL2DPBoard = document.querySelector("#HL2DPTable");
 	HL2DPBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[13]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -795,14 +788,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[13]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[13]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -823,7 +816,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -834,11 +827,11 @@ window.onload = function() {
 	};
 	let APTBoard = document.querySelector("#APTTable");
 	APTBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[14]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -849,14 +842,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[14]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[14]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -877,7 +870,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -888,11 +881,11 @@ window.onload = function() {
 	};
 	let TWTMBoard = document.querySelector("#TWTMTable");
 	TWTMBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[15]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -903,14 +896,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[15]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[15]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -931,7 +924,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -942,11 +935,11 @@ window.onload = function() {
 	};
 	let P1DP2Board = document.querySelector("#P1DP2Table");
 	P1DP2Board.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[16]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -957,14 +950,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[16]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[16]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -985,7 +978,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -996,11 +989,11 @@ window.onload = function() {
 	};
 	let MELBoard = document.querySelector("#MELTable");
 	MELBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[17]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -1011,14 +1004,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[17]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[17]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -1039,7 +1032,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -1050,11 +1043,11 @@ window.onload = function() {
 	};
 	let VRBoard = document.querySelector("#VRTable");
 	VRBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[18]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -1065,14 +1058,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[18]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[18]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -1093,7 +1086,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -1104,11 +1097,11 @@ window.onload = function() {
 	};
 	let ELEBoard = document.querySelector("#ELETable");
 	ELEBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[19]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -1119,14 +1112,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[19]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[19]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -1147,7 +1140,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -1158,11 +1151,11 @@ window.onload = function() {
 	};
 	let RRRBoard = document.querySelector("#RRRTable");
 	RRRBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[20]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -1173,14 +1166,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[20]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[20]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -1201,7 +1194,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -1212,11 +1205,11 @@ window.onload = function() {
 	};
 	let PRVBoard = document.querySelector("#PRVTable");
 	PRVBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[21]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -1227,14 +1220,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[21]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[21]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -1255,7 +1248,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -1266,11 +1259,11 @@ window.onload = function() {
 	};
 	let BCPBoard = document.querySelector("#BCPTable");
 	BCPBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[22]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -1281,14 +1274,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[22]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[22]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -1309,7 +1302,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -1320,11 +1313,11 @@ window.onload = function() {
 	};
 	let P2SMBoard = document.querySelector("#P2SMTable");
 	P2SMBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[23]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -1335,14 +1328,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[23]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[23]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -1363,7 +1356,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -1374,11 +1367,11 @@ window.onload = function() {
 	};
 	let MEBoard = document.querySelector("#METable");
 	MEBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[24]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -1389,14 +1382,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[24]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[24]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -1417,7 +1410,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -1428,11 +1421,11 @@ window.onload = function() {
 	};
 	let PEEBoard = document.querySelector("#PEETable");
 	PEEBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[25]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -1443,14 +1436,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[25]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[25]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -1471,7 +1464,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -1482,11 +1475,11 @@ window.onload = function() {
 	};
 	let PBMBoard = document.querySelector("#PBMTable");
 	PBMBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[26]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -1497,14 +1490,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[26]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[26]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -1525,7 +1518,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -1536,11 +1529,11 @@ window.onload = function() {
 	};
 	let PURBoard = document.querySelector("#PURTable");
 	PURBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[27]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -1551,14 +1544,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[27]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[27]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -1579,7 +1572,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
@@ -1590,11 +1583,11 @@ window.onload = function() {
 	};
 	let PRBoard = document.querySelector("#PRTable");
 	PRBoard.onclick = () => {
-		apicount = 0;
+		
 		let xhr = new XMLHttpRequest();
 		xhr.open("GET", `https://www.speedrun.com/api/v1/games/${ids[28]}`, false);
 		xhr.send();
-		apicount++;
+		
 		moderators = [];
 		runsVerified = [];
 		database = JSON.parse(xhr.responseText);
@@ -1605,14 +1598,14 @@ window.onload = function() {
 		for (var i = moderators.length - 1; i >= 0; i--) {
 			xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[28]}&max=200&examiner=${moderators[i]}`, false);
 			xhr2.send();
-			apicount++;
+			
 			runs = JSON.parse(xhr2.responseText);
 			runsVerifiedNumber = runs.pagination.size;
 			do {
 				if (runs.pagination.size == 200) {
 					xhr2.open("GET", `https://www.speedrun.com/api/v1/runs?game=${ids[28]}&max=200&examiner=${moderators[i]}&offset=${runsVerifiedNumber}`, false);
 					xhr2.send();
-					apicount++;
+					
 					runs = JSON.parse(xhr2.responseText);
 					runsVerifiedNumber += runs.pagination.size;
 				}
@@ -1633,7 +1626,7 @@ window.onload = function() {
 			place++
 			xhr3.open("GET", "https://www.speedrun.com/api/v1/users/" + key, false);
 			xhr3.send();
-			apicount++;
+			
 			modNameRaw = JSON.parse(xhr3.responseText)
 			modName = modNameRaw["data"]["names"]["international"]
 			output += "<tr><td>" + place + "</td><td>" + modName + "</td><td>" + result[key] + "</td><tr>"
